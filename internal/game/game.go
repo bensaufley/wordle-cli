@@ -1,7 +1,6 @@
 package game
 
 import (
-	"crypto/rand"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -25,47 +24,13 @@ func init() {
 	wordlen = big.NewInt(int64(len(words)))
 }
 
-func randomWord() string {
-	index, _ := rand.Int(rand.Reader, wordlen)
-	return words[index.Int64()]
-}
-
-func guessInWords(guess string) bool {
-	for _, word := range words {
-		if word == guess {
-			return true
-		}
-	}
-	return false
-}
+const maxGuesses = 6
+const wordLength = 5
 
 type Game struct {
 	Word         string
 	guesses      []string
 	currentGuess string
-}
-
-func New() *Game {
-	g := &Game{
-		Word:    randomWord(),
-		guesses: []string{},
-	}
-	return g
-}
-
-func (g *Game) CanGuess() bool {
-	guesslen := len(g.guesses)
-	if guesslen == 0 {
-		return true
-	}
-	if guesslen == 5 || g.Won() {
-		return false
-	}
-	return true
-}
-
-func (g *Game) Won() bool {
-	return g.guesses[len(g.guesses)-1] == g.Word
 }
 
 func (g *Game) Play() {
@@ -85,7 +50,7 @@ func (g *Game) Play() {
 		currguesslen := len(g.currentGuess)
 		switch char {
 		case 13: // return
-			if currguesslen < 5 {
+			if currguesslen < wordLength {
 				continue
 			}
 			if guessInWords(g.currentGuess) {
@@ -100,7 +65,7 @@ func (g *Game) Play() {
 			if char < 'A' || (char > 'Z' && char < 'a') || char > 'z' {
 				continue
 			}
-			if currguesslen < 5 {
+			if currguesslen < wordLength {
 				g.currentGuess = strings.ToLower(fmt.Sprintf("%s%c", g.currentGuess, char))
 			}
 		}

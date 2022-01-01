@@ -7,7 +7,7 @@ import (
 
 func (g *Game) DisplayBoard() {
 	fmt.Print("\x1b7") // save cursor position
-	for i := 0; i < 5; i++ {
+	for i := 0; i < maxGuesses; i++ {
 		guessesCount := len(g.guesses)
 		if i < guessesCount {
 			for j, c := range g.guesses[i] {
@@ -20,7 +20,7 @@ func (g *Game) DisplayBoard() {
 				}
 			}
 		} else if i == guessesCount {
-			for j := 0; j < 5; j++ {
+			for j := 0; j < wordLength; j++ {
 				c := '_'
 				currguesslen := len(g.currentGuess)
 				if currguesslen > j {
@@ -33,7 +33,11 @@ func (g *Game) DisplayBoard() {
 				}
 			}
 		} else {
-			fmt.Print("\x1b[30;47m_____\x1b[0m")
+			fmt.Print("\x1b[30;47m")
+			for i := 0; i < wordLength; i++ {
+				fmt.Print(" ")
+			}
+			fmt.Print("\x1b[0m")
 		}
 		fmt.Printf("\n")
 	}
