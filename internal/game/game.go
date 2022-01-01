@@ -39,11 +39,14 @@ func (g *Game) Play() {
 		g.DisplayBoard()
 
 		char, err := input.GetChar()
-		if err != nil {
-			panic(err)
-		}
 		if char == 3 { // sigint
+			fmt.Println()
 			os.Exit(130)
+		}
+
+		fmt.Print("\x1b8")
+		if err != nil {
+			continue
 		}
 
 		fmt.Print("\x1b8")

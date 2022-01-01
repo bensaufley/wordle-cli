@@ -12,6 +12,10 @@ func GetChar() (rune, error) {
 	t, _ := term.Open("/dev/tty")
 	term.RawMode(t)
 	bts := make([]byte, 3)
+	defer func() {
+		t.Restore()
+		t.Close()
+	}()
 
 	numRead, err := t.Read(bts)
 	if err != nil {
@@ -22,8 +26,6 @@ func GetChar() (rune, error) {
 		return 0, errors.New("invalid number of bytes in character")
 	}
 
-	t.Restore()
-	t.Close()
 	return rune(bts[0]), nil
 }
 
