@@ -30,17 +30,9 @@ func GetChar() (rune, error) {
 }
 
 func Confirm(dflt bool) bool {
-	t, _ := term.Open("/dev/tty")
-	term.RawMode(t)
-	defer func() {
-		t.Restore()
-		t.Close()
-	}()
-
 	for {
-		bts := make([]byte, 1)
-		t.Read(bts)
-		switch bts[0] {
+		t, _ := GetChar()
+		switch t {
 		case 3:
 			os.Exit(130)
 		case 13:
