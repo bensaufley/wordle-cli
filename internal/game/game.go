@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bensaufley/wordle/internal/input"
+	"github.com/bensaufley/wordle-cli/internal/input"
 )
 
 //go:embed words.json

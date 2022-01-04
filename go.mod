@@ -1,4 +1,4 @@
-module github.com/bensaufley/wordle
+module github.com/bensaufley/wordle-cli
 
 go 1.17
 

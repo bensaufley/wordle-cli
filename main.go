@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/bensaufley/wordle/internal/game"
-	"github.com/bensaufley/wordle/internal/input"
+	"github.com/bensaufley/wordle-cli/internal/game"
+	"github.com/bensaufley/wordle-cli/internal/input"
 	"github.com/pkg/term"
 )
 
